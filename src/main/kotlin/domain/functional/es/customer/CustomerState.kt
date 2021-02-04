@@ -16,16 +16,19 @@ class CustomerState private constructor() {
 
     fun apply(events: List<Event>) {
         for (event in events) {
-            if (event.javaClass == CustomerRegistered::class.java) {
-                // TODO
+            if (event is CustomerRegistered) {
+                emailAddress = event.emailAddress
+                confirmationHash = event.confirmationHash
                 continue
             }
-            if (event.javaClass == CustomerEmailAddressConfirmed::class.java) {
-                // TODO
+            if (event is CustomerEmailAddressConfirmed) {
+                isEmailAddressConfirmed = true
                 continue
             }
-            if (event.javaClass == CustomerEmailAddressChanged::class.java) {
-                // TODO
+            if (event is CustomerEmailAddressChanged) {
+                emailAddress = event.emailAddress
+                confirmationHash = event.confirmationHash
+                isEmailAddressConfirmed = false
             }
         }
     }
