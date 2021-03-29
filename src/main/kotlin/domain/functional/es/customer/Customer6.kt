@@ -4,9 +4,6 @@ import domain.functional.es.customer.CustomerState.Companion.reconstitute
 import domain.shared.command.ChangeCustomerEmailAddress
 import domain.shared.command.ConfirmCustomerEmailAddress
 import domain.shared.command.RegisterCustomer
-import domain.shared.event.CustomerEmailAddressChanged
-import domain.shared.event.CustomerEmailAddressConfirmationFailed
-import domain.shared.event.CustomerEmailAddressConfirmed
 import domain.shared.event.CustomerRegistered
 import domain.shared.event.CustomerRegistered.Companion.build
 import domain.shared.event.Event
@@ -14,29 +11,22 @@ import domain.shared.event.Event
 object Customer6 {
 
     fun register(command: RegisterCustomer): CustomerRegistered? {
-        return build(command.customerID,command.emailAddress,command.confirmationHash,command.name)
+        return null // TODO
     }
 
     fun confirmEmailAddress(eventStream: List<Event>, command: ConfirmCustomerEmailAddress): List<Event> {
         val current = reconstitute(eventStream)
 
-        if(current.confirmationHash != command.confirmationHash) {
-            return listOf(CustomerEmailAddressConfirmationFailed.build(command.customerID))
-        }
-        if(current.isEmailAddressConfirmed) {
-            return emptyList()
-        }
+        // TODO
 
-        return listOf(CustomerEmailAddressConfirmed.build(command.customerID))
+        return emptyList() // TODO
     }
 
     fun changeEmailAddress(eventStream: List<Event>, command: ChangeCustomerEmailAddress): List<Event> {
         val current = reconstitute(eventStream)
 
-        if(current.emailAddress == command.emailAddress) {
-            return emptyList()
-        }
+        // TODO
 
-        return listOf(CustomerEmailAddressChanged.build(command.customerID,command.emailAddress,command.confirmationHash))
+        return emptyList() // TODO
     }
 }
